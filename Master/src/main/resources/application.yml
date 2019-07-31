@@ -1,0 +1,8 @@
+spring:
+  profiles:
+    active: redis
+server:
+  port: 8080
+shiro:
+  jessionid: sessionId
+  loginUrl: /master/login
