@@ -30,36 +30,37 @@
 
 1、sessionId串的生成
 
-   浏览器首次对项目1发起请求时，项目1 会为当前请求创建一个session ，根据session 生成一个sessionId 字符串，该sessionId串 与创建的session 维护着一个关联关系。
+浏览器首次对项目1发起请求时，项目1 会为当前请求创建一个session ，根据session 生成一个sessionId 字符串，该sessionId串 与创建的session 维护着一个关联关系。
 
 2、sessionId串存到cookie中
 
-​      后台将该sessionId串返回给浏览器，浏览器将sessionId串 拿到后，存储到浏览器中的cookie 中。如下图： 
+后台将该sessionId串返回给浏览器，浏览器将sessionId串 拿到后，存储到浏览器中的cookie 中。如下图： 
 
 ![](images\2.png)
 
 3、再去请求项目2
-  当然，当前的这个sessionId串 仅仅对项目1 来说是认识的。如果这时候浏览器接着访问项目2，（在http请求中，发起请求的一方总会把自身所带的所有cookie 打包到请求头中传给服务）。如下边两张图所示：
 
-​        第一张为在去请求项目2前，可以看到浏览器中的cookie ，此时共有三个，其中sessionId 对应的字符串是来自于项目1 登录成功后返回的 ： 
+当然，当前的这个sessionId串 仅仅对项目1 来说是认识的。如果这时候浏览器接着访问项目2，（在http请求中，发起请求的一方总会把自身所带的所有cookie 打包到请求头中传给服务）。如下边两张图所示：
+
+第一张为在去请求项目2前，可以看到浏览器中的cookie ，此时共有三个，其中sessionId 对应的字符串是来自于项目1 登录成功后返回的 ： 
 
 ![](images\3.png)
 
- 当我对`项目2` 发起请求，浏览器将现有的所有`cookie` 串统统放到了`request headers` 里，传了过去。 
+当我对`项目2` 发起请求，浏览器将现有的所有`cookie` 串统统放到了`request headers` 里，传了过去。 
 
 ![](images\4.png)
 
 4、请求必然失败
 
-​       这时候项目2 中已有的session 集合中无法根据当前传入进来的sessionId串 匹配成功的。因此登录不成功。 
+这时候项目2 中已有的session 集合中无法根据当前传入进来的sessionId串 匹配成功的。因此登录不成功。
 
-    问题就看出来，是因为项目2 里的session 集合无法认识当前传入进来的sessionId ，匹配不到session 导致的访问失败。
+问题就看出来，是因为项目2 里的session 集合无法认识当前传入进来的sessionId ，匹配不到session 导致的访问失败。
 
 ---
 
 ## 实现方式
 
- 上边已大致说明为什么需要共享`session` 。那共享`session` 后，是什么逻辑，也备了一张图, 下面说一下实现的理解, 如下图:
+上边已大致说明为什么需要共享`session` 。那共享`session` 后，是什么逻辑，也备了一张图, 下面说一下实现的理解, 如下图:
 
 ![](images\5.png)
 
