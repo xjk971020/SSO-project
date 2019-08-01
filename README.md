@@ -29,10 +29,12 @@
 上图两个项目中切换请求必然会有如下的步骤：
 
 1、sessionId串的生成
-  浏览器首次对项目1发起请求时，项目1 会为当前请求创建一个session ，根据session 生成一个sessionId 字符串，该sessionId串 与创建的session 维护着一个关联关系。
+
+   浏览器首次对项目1发起请求时，项目1 会为当前请求创建一个session ，根据session 生成一个sessionId 字符串，该sessionId串 与创建的session 维护着一个关联关系。
 
 2、sessionId串存到cookie中
-  后台将该sessionId串返回给浏览器，浏览器将sessionId串 拿到后，存储到浏览器中的cookie 中。如下图： 
+
+​      后台将该sessionId串返回给浏览器，浏览器将sessionId串 拿到后，存储到浏览器中的cookie 中。如下图： 
 
 ![](images\2.png)
 
