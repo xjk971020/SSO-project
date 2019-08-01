@@ -1,4 +1,7 @@
+
+
 # 单点登录系统实现
+
 ## 介绍
 
 一套基于shiro的伪单点登录的模板简易实现, 使用redis实现shiro-session的分布式共享, 思路可供参考。
@@ -19,7 +22,7 @@
 
 以`shiro` 框架作为`登录验证权限框架` 为例，这里还不写这个，先说为什么需要`共享session` ,正常情况的时候，是如下图： 
 
-![](F:\IdeaProjects\SSO-project\images\1.png)
+![](images\1.png)
 
 如上图描述，每个项目中`shiro` 都维护了自己的`sessionid与session的关系` ，它们之间不共享。
 
@@ -31,18 +34,18 @@
 2、sessionId串存到cookie中
   后台将该sessionId串返回给浏览器，浏览器将sessionId串 拿到后，存储到浏览器中的cookie 中。如下图： 
 
-![](F:\IdeaProjects\SSO-project\images\2.png)
+![](images\2.png)
 
 3、再去请求项目2
   当然，当前的这个sessionId串 仅仅对项目1 来说是认识的。如果这时候浏览器接着访问项目2，（在http请求中，发起请求的一方总会把自身所带的所有cookie 打包到请求头中传给服务）。如下边两张图所示：
 
 ​        第一张为在去请求项目2前，可以看到浏览器中的cookie ，此时共有三个，其中sessionId 对应的字符串是来自于项目1 登录成功后返回的 ： 
 
-![](F:\IdeaProjects\SSO-project\images\3.png)
+![](images\3.png)
 
  当我对`项目2` 发起请求，浏览器将现有的所有`cookie` 串统统放到了`request headers` 里，传了过去。 
 
-![](F:\IdeaProjects\SSO-project\images\4.png)
+![](images\4.png)
 
 4、请求必然失败
 
@@ -56,7 +59,7 @@
 
  上边已大致说明为什么需要共享`session` 。那共享`session` 后，是什么逻辑，也备了一张图, 下面说一下实现的理解, 如下图:
 
-![](F:\IdeaProjects\SSO-project\images\5.png)
+![](images\5.png)
 
 上图中`master` 项目为主项目，登录页即在这个项目中，`suiteone` 、`suitetwo` 为两个从项目，当两个从项目有请求时，如果没有登录的时候，都会打到`master` 项目的登录页上。共享`session` 采用的是`redis` 存储。
 
@@ -75,7 +78,7 @@
 
 ## 必要条件
 
-1, redis服务。
+1、redis服务。
 
 2、搭建各项目的shiro集群, 登录系统负责提供登录入口和项目路由分发。
 
