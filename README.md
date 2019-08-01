@@ -22,7 +22,7 @@
 
 以`shiro` 框架作为`登录验证权限框架` 为例，这里还不写这个，先说为什么需要`共享session` ,正常情况的时候，是如下图： 
 
-![](images\1.png)
+![](http://cathetine.cn/images/github/sso-project/1.png)
 
 如上图描述，每个项目中`shiro` 都维护了自己的`sessionid与session的关系` ，它们之间不共享。
 
@@ -36,7 +36,7 @@
 
 后台将该sessionId串返回给浏览器，浏览器将sessionId串 拿到后，存储到浏览器中的cookie 中。如下图： 
 
-![](images\2.png)
+![](http://cathetine.cn/images/github/sso-project/2.png)
 
 3、再去请求项目2
 
@@ -44,11 +44,11 @@
 
 第一张为在去请求项目2前，可以看到浏览器中的cookie ，此时共有三个，其中sessionId 对应的字符串是来自于项目1 登录成功后返回的 ： 
 
-![](images\3.png)
+![](http://cathetine.cn/images/github/sso-project/3.png)
 
 当我对`项目2` 发起请求，浏览器将现有的所有`cookie` 串统统放到了`request headers` 里，传了过去。 
 
-![](images\4.png)
+![](http://cathetine.cn/images/github/sso-project/4.png)
 
 4、请求必然失败
 
@@ -62,7 +62,7 @@
 
 上边已大致说明为什么需要共享`session` 。那共享`session` 后，是什么逻辑，也备了一张图, 下面说一下实现的理解, 如下图:
 
-![](images\5.png)
+![](http://cathetine.cn/images/github/sso-project/5.png)
 
 上图中`master` 项目为主项目，登录页即在这个项目中，`suiteone` 、`suitetwo` 为两个从项目，当两个从项目有请求时，如果没有登录的时候，都会打到`master` 项目的登录页上。共享`session` 采用的是`redis` 存储。
 
